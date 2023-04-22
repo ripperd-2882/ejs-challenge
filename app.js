@@ -42,7 +42,7 @@ app.post("/compose", function (req, res) {
   const post = {
     title: req.body.postTitle,
     content: req.body.postBody
-  });
+  };
   post.save();
 
   // const post = {
