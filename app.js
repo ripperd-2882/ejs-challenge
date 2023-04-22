@@ -32,6 +32,9 @@ app.get("/", function (req, res) {
   Post.find({}).then(function (posts) {
     res.render("home", { homeStartingContent: homeStartingContent, posts: posts })  
   })
+  .catch(function (err) {
+    console.log(err);    
+  })
 })
 
 app.get("/about", function (req, res) {
@@ -54,10 +57,14 @@ app.post("/compose", function (req, res) {
     content: req.body.postBody
   });
 
-  post.save()
+  post.save().then(function () {
+    res.redirect("/");
+  })
+  .catch(function (err) {
+    console.log(err);    
+  })
   // Used MongoDB
   // posts.push(post);
-  res.redirect("/");
 })
 
 app.get("/posts/:postName", function (req, res) {
