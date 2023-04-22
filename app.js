@@ -19,9 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-  Post.find({}).then(function (posts) {
-    res.render("home", { homeStartingContent: homeStartingContent, posts: posts })
-  })
+  res.render("home", { homeStartingContent: homeStartingContent, posts: posts })
 })
 
 app.get("/about", function (req, res) {
@@ -43,30 +41,19 @@ app.post("/compose", function (req, res) {
     title: req.body.postTitle,
     content: req.body.postBody
   };
-  post.save();
-
-  // const post = {
-  //   title: req.body.postTitle,
-  //   content: req.body.postBody
-  // };
-  // posts.push(post);
+  posts.push(post);
   res.redirect("/");
 })
 
-app.get("/posts/:postId", function (req, res) {
-  const requestedPostId = req.params.postId;
+app.get("/posts/:postName", function (req, res) {
+  const requestedTitle = _.lowerCase(req.params.postName);
+  posts.forEach(function (post) {
+    let storedTitle = _.lowerCase(post.title);
 
-  Post.findOne({_id:requestedPostId}).then(function (post) {
-    res.render("post", { postHeading: post.title, postContent: post.content })
+    if (storedTitle === requestedTitle) {
+      res.render("post", { postHeading: post.title, postContent: post.content })
+    }
   })
-
-  // posts.forEach(function (post) {
-  //   let storedTitle = _.lowerCase(post.title);
-
-  //   if (storedTitle === requestedTitle) {
-  //     res.render("post", { postHeading: post.title, postContent: post.content })
-  //   }
-  // })
 })
 
 
