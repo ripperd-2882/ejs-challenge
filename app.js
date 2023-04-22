@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://ripperd2882:LaHjA0eWWI4xgYAl@cluster0.jmelfkg.mongodb.net/blogDB");
+mongoose.connect("mongodb://127.0.0.1:27017/blogDB");
 
 const postSchema = {
   title: String,
