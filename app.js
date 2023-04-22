@@ -21,7 +21,7 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
-const posts = [];
+// const posts = [];
 
 app.set('view engine', 'ejs');
 
@@ -29,7 +29,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-  res.render("home", { homeStartingContent: homeStartingContent, posts: posts })
+  Post.find({}).then(function (posts) {
+    res.render("home", { homeStartingContent: homeStartingContent, posts: posts })  
+  })
 })
 
 app.get("/about", function (req, res) {
