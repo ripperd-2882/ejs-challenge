@@ -1,5 +1,6 @@
 //jshint esversion:6
 
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -7,7 +8,8 @@ const _ = require("lodash");
 const mongoose=require("mongoose");
 
 // mongoose.connect("mongodb://127.0.0.1:27017/blogDB", {useNewUrlParser: true});
-mongoose.connect("mongodb+srv://ripperd2882:LaHjA0eWWI4xgYAl@cluster0.jmelfkg.mongodb.net/blogDB");
+const URL="mongodb+srv://"+process.env.MONGODB_ATLAS_USER+":"+process.env.MONGODB_ATLAS_PASSWORD+"@cluster0.jmelfkg.mongodb.net/blogDB";
+mongoose.connect(URL);
 
 const postSchema = {
   title: String,
